@@ -14,6 +14,14 @@
             box-sizing: border-box;
             color: #333;
             font-size: 14px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .weather-wrapper {
+            max-width: 100%;
+            width: 100%;
+            max-width: 775px;
         }
 
         h1 {
@@ -26,175 +34,185 @@
             margin: 10px 0 5px;
         }
 
+        /* Current weather as card-like blocks */
         .current {
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 10px;
+            flex-wrap: wrap;
         }
 
         .current p {
+            flex: 1 1 90px;
+            min-width: 90px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+            font-size: 13px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
             margin: 0;
-            flex: 1 1 30%;
         }
 
-        .wi {
-            margin-right: 0.3em;
-            vertical-align: middle;
+        .current .wi {
+            display: block;
+            margin-bottom: 3px;
             font-size: 1.2em;
         }
 
-        .forecast, .hourly {
-            margin-top: 10px;
-        }
-
-        .day, .hour {
+        /* Forecast & Hourly Scrollable Rows */
+        .forecast-row, .hourly-row {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 3px 0;
-            border-bottom: 1px solid #ddd;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 5px 0;
+        }
+
+        .day-block, .hour-block {
+            min-width: 90px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
             font-size: 13px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
         }
 
-        .day i, .hour i {
-            margin-right: 6px;
-            font-size: 1em;
-            min-width: 24px;
-        }
-
-        /* Scrollable sections */
-        .forecast, .hourly {
-            max-height: 150px;
-            overflow-y: auto;
+        .day-block i, .hour-block i {
+            font-size: 1.2em;
+            margin-bottom: 3px;
         }
 
         /* Responsive tweaks */
-        @media (max-height: 480px) {
+        @media (max-height: 480px), (max-width: 480px) {
             body {
                 font-size: 13px;
+                padding: 5px;
             }
 
-            .forecast, .hourly {
-                max-height: 140px;
+            .day-block, .hour-block, .current p {
+                min-width: 80px;
+                font-size: 12px;
+            }
+
+            .weather-wrapper {
+                max-width: 100%;
             }
         }
     </style>
 </head>
 
 <body>
-    <h1>📍 Weather in Athens, GA</h1>
+    <div class="weather-wrapper">
+        
 
-    <div class="current">
-        <p><i class="wi wi-thermometer"></i><strong>65.84°F</strong></p>
-        <p><i class="wi wi-sunrise"></i> 7:31 AM</p>
-        <p><i class="wi wi-sunset"></i> 7:11 PM</p>
-    </div>
+        <div class="current">
+            <p><i class="wi wi-thermometer"></i><strong>72.95°F</strong></p>
+            <p><i class="wi wi-sunrise"></i> 7:31 AM</p>
+            <p><i class="wi wi-sunset"></i> 7:11 PM</p>
+        </div>
 
-    <div class="forecast">
-        <h2>7-Day Forecast</h2>
-        
-            <div class="day">
-                <span><i class="wi wi-day-rain"></i>Mon, Oct  6</span>
-                <span>65.7°F - 77.0°F</span>
+        <div class="forecast">
+            <h2>7-Day Forecast</h2>
+            <div class="forecast-row">
+                
+                    <div class="day-block">
+                        <div><i class="wi wi-day-rain"></i></div>
+                        <div>Mon, Oct  6</div>
+                        <div>66.5°F - 74.3°F</div>
+                    </div>
+                
+                    <div class="day-block">
+                        <div><i class="wi wi-cloud"></i></div>
+                        <div>Tue, Oct  7</div>
+                        <div>66.4°F - 82.1°F</div>
+                    </div>
+                
+                    <div class="day-block">
+                        <div><i class="wi wi-day-rain"></i></div>
+                        <div>Wed, Oct  8</div>
+                        <div>67.2°F - 83.1°F</div>
+                    </div>
+                
+                    <div class="day-block">
+                        <div><i class="wi wi-day-rain"></i></div>
+                        <div>Thu, Oct  9</div>
+                        <div>57.9°F - 67.5°F</div>
+                    </div>
+                
+                    <div class="day-block">
+                        <div><i class="wi wi-cloudy"></i></div>
+                        <div>Fri, Oct 10</div>
+                        <div>53.5°F - 72.0°F</div>
+                    </div>
+                
+                    <div class="day-block">
+                        <div><i class="wi wi-day-sunny"></i></div>
+                        <div>Sat, Oct 11</div>
+                        <div>54.6°F - 76.3°F</div>
+                    </div>
+                
+                    <div class="day-block">
+                        <div><i class="wi wi-day-sunny"></i></div>
+                        <div>Sun, Oct 12</div>
+                        <div>53.9°F - 80.3°F</div>
+                    </div>
+                
             </div>
-        
-            <div class="day">
-                <span><i class="wi wi-cloudy"></i>Tue, Oct  7</span>
-                <span>63.3°F - 82.0°F</span>
-            </div>
-        
-            <div class="day">
-                <span><i class="wi wi-day-rain"></i>Wed, Oct  8</span>
-                <span>66.7°F - 85.9°F</span>
-            </div>
-        
-            <div class="day">
-                <span><i class="wi wi-day-rain"></i>Thu, Oct  9</span>
-                <span>59.9°F - 66.4°F</span>
-            </div>
-        
-            <div class="day">
-                <span><i class="wi wi-day-rain"></i>Fri, Oct 10</span>
-                <span>55.8°F - 65.0°F</span>
-            </div>
-        
-            <div class="day">
-                <span><i class="wi wi-cloud"></i>Sat, Oct 11</span>
-                <span>53.8°F - 75.2°F</span>
-            </div>
-        
-            <div class="day">
-                <span><i class="wi wi-day-cloudy"></i>Sun, Oct 12</span>
-                <span>56.2°F - 74.1°F</span>
-            </div>
-        
-    </div>
+        </div>
 
-    <div class="hourly">
-        <h2>Next 12 Hours</h2>
-        
-            <div class="hour">
-                <span><i class="wi wi-night-clear"></i>Mon 12 AM</span>
-                <span>65.8°F</span>
+        <div class="hourly">
+            <h2>Next 12 Hours</h2>
+            <div class="hourly-row">
+                
+                    <div class="hour-block">
+                        <div><i class="wi wi-day-rain"></i></div>
+                        <div>4 PM</div>
+                        <div>73.0°F</div>
+                    </div>
+                
+                    <div class="hour-block">
+                        <div><i class="wi wi-cloudy"></i></div>
+                        <div>5 PM</div>
+                        <div>73.4°F</div>
+                    </div>
+                
+                    <div class="hour-block">
+                        <div><i class="wi wi-cloudy"></i></div>
+                        <div>6 PM</div>
+                        <div>73.6°F</div>
+                    </div>
+                
+                    <div class="hour-block">
+                        <div><i class="wi wi-cloudy"></i></div>
+                        <div>7 PM</div>
+                        <div>72.8°F</div>
+                    </div>
+                
+                    <div class="hour-block">
+                        <div><i class="wi wi-night-alt-rain"></i></div>
+                        <div>8 PM</div>
+                        <div>71.7°F</div>
+                    </div>
+                
+                    <div class="hour-block">
+                        <div><i class="wi wi-cloud"></i></div>
+                        <div>9 PM</div>
+                        <div>70.6°F</div>
+                    </div>
+                
+                    <div class="hour-block">
+                        <div><i class="wi wi-night-alt-cloudy"></i></div>
+                        <div>10 PM</div>
+                        <div>68.7°F</div>
+                    </div>
+                
             </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-night-clear"></i>Mon  1 AM</span>
-                <span>66.2°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-night-alt-cloudy"></i>Mon  2 AM</span>
-                <span>66.2°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon  3 AM</span>
-                <span>65.9°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon  4 AM</span>
-                <span>65.9°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon  5 AM</span>
-                <span>66.1°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon  6 AM</span>
-                <span>65.7°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon  7 AM</span>
-                <span>65.8°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon  8 AM</span>
-                <span>66.7°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon  9 AM</span>
-                <span>66.5°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon 10 AM</span>
-                <span>66.7°F</span>
-            </div>
-        
-            <div class="hour">
-                <span><i class="wi wi-cloudy"></i>Mon 11 AM</span>
-                <span>66.7°F</span>
-            </div>
-        
+        </div>
     </div>
 </body>
 </html>
-

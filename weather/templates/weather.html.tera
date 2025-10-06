@@ -14,6 +14,14 @@
             box-sizing: border-box;
             color: #333;
             font-size: 14px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .weather-wrapper {
+            max-width: 100%;
+            width: 100%;
+            max-width: 775px;
         }
 
         h1 {
@@ -26,90 +34,113 @@
             margin: 10px 0 5px;
         }
 
+        /* Current weather as card-like blocks */
         .current {
             display: flex;
-            flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 10px;
+            flex-wrap: wrap;
         }
 
         .current p {
+            flex: 1 1 90px;
+            min-width: 90px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+            font-size: 13px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
             margin: 0;
-            flex: 1 1 30%;
         }
 
-        .wi {
-            margin-right: 0.3em;
-            vertical-align: middle;
+        .current .wi {
+            display: block;
+            margin-bottom: 3px;
             font-size: 1.2em;
         }
 
-        .forecast, .hourly {
-            margin-top: 10px;
-        }
-
-        .day, .hour {
+        /* Forecast & Hourly Scrollable Rows */
+        .forecast-row, .hourly-row {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 3px 0;
-            border-bottom: 1px solid #ddd;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 5px 0;
+        }
+
+        .day-block, .hour-block {
+            min-width: 90px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
             font-size: 13px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
         }
 
-        .day i, .hour i {
-            margin-right: 6px;
-            font-size: 1em;
-            min-width: 24px;
-        }
-
-        /* Scrollable sections */
-        .forecast, .hourly {
-            max-height: 150px;
-            overflow-y: auto;
+        .day-block i, .hour-block i {
+            font-size: 1.2em;
+            margin-bottom: 3px;
         }
 
         /* Responsive tweaks */
-        @media (max-height: 480px) {
+        @media (max-height: 480px), (max-width: 480px) {
             body {
                 font-size: 13px;
+                padding: 5px;
             }
 
-            .forecast, .hourly {
-                max-height: 140px;
+            .day-block, .hour-block, .current p {
+                min-width: 80px;
+                font-size: 12px;
+            }
+
+            .weather-wrapper {
+                max-width: 100%;
             }
         }
     </style>
 </head>
 
 <body>
-    <h1>📍 Weather in Athens, GA</h1>
+    <div class="weather-wrapper">
+        {# <h1>📍 Weather in Athens, GA</h1> #}
 
-    <div class="current">
-        <p><i class="wi wi-thermometer"></i><strong>{{ current_temp }}°F</strong></p>
-        <p><i class="wi wi-sunrise"></i>{{ sunrise }}</p>
-        <p><i class="wi wi-sunset"></i>{{ sunset }}</p>
-    </div>
+        <div class="current">
+            <p><i class="wi wi-thermometer"></i><strong>{{ current_temp }}°F</strong></p>
+            <p><i class="wi wi-sunrise"></i>{{ sunrise }}</p>
+            <p><i class="wi wi-sunset"></i>{{ sunset }}</p>
+        </div>
 
-    <div class="forecast">
-        <h2>7-Day Forecast</h2>
-        {% for day in daily %}
-            <div class="day">
-                <span><i class="wi {{ day.icon }}"></i>{{ day.date }}</span>
-                <span>{{ day.min }}°F - {{ day.max }}°F</span>
+        <div class="forecast">
+            <h2>7-Day Forecast</h2>
+            <div class="forecast-row">
+                {% for day in daily %}
+                    <div class="day-block">
+                        <div><i class="wi {{ day.icon }}"></i></div>
+                        <div>{{ day.date }}</div>
+                        <div>{{ day.min }}°F - {{ day.max }}°F</div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+        </div>
 
-    <div class="hourly">
-        <h2>Next 12 Hours</h2>
-        {% for hour in hourly %}
-            <div class="hour">
-                <span><i class="wi {{ hour.icon }}"></i>{{ hour.time }}</span>
-                <span>{{ hour.temp }}°F</span>
+        <div class="hourly">
+            <h2>Next 12 Hours</h2>
+            <div class="hourly-row">
+                {% for hour in hourly %}
+                    <div class="hour-block">
+                        <div><i class="wi {{ hour.icon }}"></i></div>
+                        <div>{{ hour.time }}</div>
+                        <div>{{ hour.temp }}°F</div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     </div>
 </body>
 </html>
-

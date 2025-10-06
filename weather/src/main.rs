@@ -26,6 +26,30 @@ fn map_icon_to_class(icon: &str) -> &str {
     }
 }
 
+use headless_chrome::protocol::cdp::Page;
+use headless_chrome::{Browser, LaunchOptions};
+
+fn capture_screenshot(html_path: &str, output_png: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let browser = Browser::new(LaunchOptions::default())?;
+    let tab = browser.new_tab()?;
+
+    let file_url = format!(
+        "file://{}",
+        std::fs::canonicalize(html_path)?.to_string_lossy()
+    );
+    tab.navigate_to(&file_url)?;
+    tab.wait_until_navigated()?;
+
+    // optional delay
+    std::thread::sleep(std::time::Duration::from_secs(1));
+
+    let png_data =
+        tab.capture_screenshot(Page::CaptureScreenshotFormatOption::Png, None, None, true)?;
+    std::fs::write(output_png, png_data)?;
+
+    Ok(())
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
@@ -85,13 +109,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let hourly: Vec<HashMap<&str, String>> = weather
         .hourly
         .iter()
-        .take(12)
+        .take(7)
         .filter_map(|hour| {
             if let chrono::LocalResult::Single(datetime) = Local.timestamp_opt(hour.dt as i64, 0) {
                 let mut map = HashMap::new();
                 map.insert(
                     "time",
-                    datetime.format("%a %l %p").to_string().trim().to_string(),
+                    datetime.format("%l %p").to_string().trim().to_string(),
                 );
                 map.insert("temp", format!("{:.1}", hour.temp));
 
@@ -124,6 +148,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Write to file
     let mut file = File::create("weather.html")?;
     file.write_all(rendered.as_bytes())?;
+
+    if let Err(e) = capture_screenshot("weather.html", "weather.png") {
+        eprintln!("Screenshot capture failed: {:?}", e);
+    }
 
     println!("✅ Weather report written to 'weather.html'");
 
