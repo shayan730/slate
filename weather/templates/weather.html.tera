@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather in Athens, GA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            {# background: #f0f8ff; #}
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+            color: #333;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0 0 10px;
+        }
+
+        h2 {
+            font-size: 16px;
+            margin: 10px 0 5px;
+        }
+
+        .current {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .current p {
+            margin: 0;
+            flex: 1 1 30%;
+        }
+
+        .wi {
+            margin-right: 0.3em;
+            vertical-align: middle;
+            font-size: 1.2em;
+        }
+
+        .forecast, .hourly {
+            margin-top: 10px;
+        }
+
+        .day, .hour {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 13px;
+        }
+
+        .day i, .hour i {
+            margin-right: 6px;
+            font-size: 1em;
+            min-width: 24px;
+        }
+
+        /* Scrollable sections */
+        .forecast, .hourly {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        /* Responsive tweaks */
+        @media (max-height: 480px) {
+            body {
+                font-size: 13px;
+            }
+
+            .forecast, .hourly {
+                max-height: 140px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>📍 Weather in Athens, GA</h1>
+
+    <div class="current">
+        <p><i class="wi wi-thermometer"></i><strong>{{ current_temp }}°F</strong></p>
+        <p><i class="wi wi-sunrise"></i>{{ sunrise }}</p>
+        <p><i class="wi wi-sunset"></i>{{ sunset }}</p>
+    </div>
+
+    <div class="forecast">
+        <h2>7-Day Forecast</h2>
+        {% for day in daily %}
+            <div class="day">
+                <span><i class="wi {{ day.icon }}"></i>{{ day.date }}</span>
+                <span>{{ day.min }}°F - {{ day.max }}°F</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="hourly">
+        <h2>Next 12 Hours</h2>
+        {% for hour in hourly %}
+            <div class="hour">
+                <span><i class="wi {{ hour.icon }}"></i>{{ hour.time }}</span>
+                <span>{{ hour.temp }}°F</span>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
