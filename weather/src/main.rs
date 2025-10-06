@@ -22,6 +22,22 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("📍 Athens, GA");
     println!("Current Temp: {}°F", weather.current.temp);
+
+    if let chrono::LocalResult::Single(datetime) =
+        Local.timestamp_opt(weather.current.sunrise as i64, 0)
+    {
+        println!(
+            "Sunrise: {}",
+            datetime.format("%l:%M %p").to_string().trim()
+        )
+    };
+    if let chrono::LocalResult::Single(datetime) =
+        Local.timestamp_opt(weather.current.sunset as i64, 0)
+    {
+        println!("Sunset: {}", datetime.format("%l:%M %p").to_string().trim())
+    };
+
+    println!();
     println!("Daily Forecasts:");
 
     for day in weather.daily.iter().take(7) {
@@ -38,7 +54,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             );
         }
     }
-
     println!();
 
     for hour in weather.hourly.iter().take(12) {
