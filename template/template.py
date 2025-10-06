@@ -18,7 +18,7 @@ def main():
         epd.Clear()
 
         # Load image
-        image = Image.open('blood.bmp')
+        image = Image.open('../weather/weather.png')
         image = image.convert('1')  # Convert to 1-bit mode
         image = image.resize((800, 480))  # Match display resolution
 
