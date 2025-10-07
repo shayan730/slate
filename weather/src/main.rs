@@ -79,7 +79,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let daily: Vec<HashMap<&str, String>> = weather
         .daily
         .iter()
-        .take(7)
+        .take(6)
         .filter_map(|day| {
             if let chrono::LocalResult::Single(datetime) = Local.timestamp_opt(day.dt as i64, 0) {
                 let mut map = HashMap::new();
@@ -109,7 +109,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let hourly: Vec<HashMap<&str, String>> = weather
         .hourly
         .iter()
-        .take(7)
+        .take(6)
         .filter_map(|hour| {
             if let chrono::LocalResult::Single(datetime) = Local.timestamp_opt(hour.dt as i64, 0) {
                 let mut map = HashMap::new();
