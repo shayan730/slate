@@ -148,7 +148,7 @@
 
         @media (max-width: 820px) {
             :root {
-                --card-width: 90px;
+                --card-width: 115px;
             }
             body {
                 font-size: 13px;
