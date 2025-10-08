@@ -28,9 +28,32 @@ fn map_icon_to_class(icon: &str) -> &str {
 
 use headless_chrome::protocol::cdp::Page;
 use headless_chrome::{Browser, LaunchOptions};
+use std::ffi::OsString;
 
 fn capture_screenshot(html_path: &str, output_png: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let browser = Browser::new(LaunchOptions::default())?;
+    // let browser = Browser::new(LaunchOptions::default())?;
+    let dimensions = (800, 480); // set your desired resolution
+
+    let browser = Browser::new(LaunchOptions {
+        headless: true,
+        args: vec![
+            &OsString::from(format!("--window-size={},{}", dimensions.0, dimensions.1)),
+            &OsString::from("--disable-dev-shm-usage"),
+            &OsString::from("--disable-gpu"),
+            &OsString::from("--use-gl=swiftshader"),
+            &OsString::from("--hide-scrollbars"),
+            &OsString::from("--in-process-gpu"),
+            &OsString::from("--js-flags=--jitless"),
+            &OsString::from("--disable-zero-copy"),
+            &OsString::from("--disable-gpu-memory-buffer-compositor-resources"),
+            &OsString::from("--disable-extensions"),
+            &OsString::from("--disable-plugins"),
+            &OsString::from("--mute-audio"),
+            &OsString::from("--no-sandbox"),
+        ],
+        ..Default::default()
+    })?;
+
     let tab = browser.new_tab()?;
 
     let file_url = format!(

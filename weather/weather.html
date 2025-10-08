@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Weather in Athens, GA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Weather Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css"
+    />
 
     <!-- Modern Font: Manrope -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    />
 
     <style>
         :root {
-            --bg: #ffffff;
+            --bg: transparent;
             --text: #111;
-            --card-bg: #f9f9f9;
+            --card-bg: transparent;
             --border: #ccc;
             --font: 'Manrope', sans-serif;
             --gap: 12px;
-            --card-width: 110px;
+            --card-width: 100px;
         }
 
         * {
@@ -28,13 +34,15 @@
 
         body {
             margin: 0;
-            padding: 20px;
+            padding: 12px 20px;
             font-family: var(--font);
             background: var(--bg);
             color: var(--text);
             display: flex;
             justify-content: center;
-            font-size: 15px;
+            align-items: flex-start;
+            font-size: 14px;
+            min-height: 480px;
         }
 
         .weather-wrapper {
@@ -42,18 +50,18 @@
             max-width: 800px;
         }
 
-        h1, h3 {
+        h1,
+        h3 {
             margin: 0 0 12px;
             font-weight: 600;
             font-size: 18px;
         }
 
-        /* === Current Weather === */
         .current {
             display: flex;
             gap: var(--gap);
             flex-wrap: wrap;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .current p {
@@ -79,8 +87,8 @@
             margin-bottom: 6px;
         }
 
-        /* === Shared Card Block for Hourly and Forecast === */
-        .hour-block, .day-block {
+        .hour-block,
+        .day-block {
             width: var(--card-width);
             min-width: var(--card-width);
             background: var(--card-bg);
@@ -94,56 +102,84 @@
             transition: background 0.2s ease;
         }
 
-        .hour-block:hover, .day-block:hover {
+        .hour-block:hover,
+        .day-block:hover {
             background: #eee;
         }
 
-        .hour-block i, .day-block i {
+        .hour-block i,
+        .day-block i {
             font-size: 18px;
             margin-bottom: 4px;
             display: block;
         }
 
-        .forecast, .hourly {
-            margin-top: 20px;
+        .forecast,
+        .hourly {
+            margin-top: 10px;
         }
 
-        .forecast-row, .hourly-row {
+        .forecast-row,
+        .hourly-row {
             display: flex;
             overflow-x: auto;
             gap: var(--gap);
-            padding-bottom: 10px;
+            padding-bottom: 1px;
             scroll-snap-type: x mandatory;
         }
 
-        /* === Responsive Adjustments === */
-        @media (max-width: 600px) {
-            body {
-                padding: 12px;
-                font-size: 14px;
-            }
+        /* Scrollbar styling for better UX */
+        .hourly-row::-webkit-scrollbar,
+        .forecast-row::-webkit-scrollbar {
+            height: 6px;
+        }
 
+        .hourly-row::-webkit-scrollbar-thumb,
+        .forecast-row::-webkit-scrollbar-thumb {
+            background: #bbb;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 820px) {
             :root {
                 --card-width: 90px;
+            }
+            body {
+                font-size: 13px;
             }
 
             .current p,
             .hour-block,
             .day-block {
                 font-size: 13px;
-                padding: 8px;
+                padding: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            :root {
+                --card-width: 80px;
+            }
+
+            .current p,
+            .hour-block,
+            .day-block {
+                font-size: 12px;
+                padding: 6px;
             }
         }
     </style>
 </head>
 <body>
     <div class="weather-wrapper">
-        <!-- Optional Title -->
-        <!-- <h1>Weather in Athens, GA</h1> -->
-
         <!-- Current Weather -->
         <div class="current">
-            <p><i class="wi wi-thermometer"></i><strong>78.64°F</strong></p>
+            <p><i class="wi wi-thermometer"></i><strong>66.99°F</strong></p>
             <p><i class="wi wi-sunrise"></i> 7:32 AM</p>
             <p><i class="wi wi-sunset"></i> 7:09 PM</p>
         </div>
@@ -153,41 +189,41 @@
             <h3>Next 6 Hours</h3>
             <div class="hourly-row">
                 
-                    <div class="hour-block">
-                        <i class="wi wi-cloudy"></i>
-                        <div>4 PM</div>
-                        <div>78.7°F</div>
-                    </div>
+                <div class="hour-block">
+                    <i class="wi wi-night-clear"></i>
+                    <div>11 PM</div>
+                    <div>67.0°F</div>
+                </div>
                 
-                    <div class="hour-block">
-                        <i class="wi wi-cloudy"></i>
-                        <div>5 PM</div>
-                        <div>78.6°F</div>
-                    </div>
+                <div class="hour-block">
+                    <i class="wi wi-night-clear"></i>
+                    <div>12 AM</div>
+                    <div>67.5°F</div>
+                </div>
                 
-                    <div class="hour-block">
-                        <i class="wi wi-cloudy"></i>
-                        <div>6 PM</div>
-                        <div>78.7°F</div>
-                    </div>
+                <div class="hour-block">
+                    <i class="wi wi-night-clear"></i>
+                    <div>1 AM</div>
+                    <div>68.0°F</div>
+                </div>
                 
-                    <div class="hour-block">
-                        <i class="wi wi-cloudy"></i>
-                        <div>7 PM</div>
-                        <div>78.1°F</div>
-                    </div>
+                <div class="hour-block">
+                    <i class="wi wi-night-clear"></i>
+                    <div>2 AM</div>
+                    <div>68.7°F</div>
+                </div>
                 
-                    <div class="hour-block">
-                        <i class="wi wi-cloudy"></i>
-                        <div>8 PM</div>
-                        <div>77.9°F</div>
-                    </div>
+                <div class="hour-block">
+                    <i class="wi wi-cloudy"></i>
+                    <div>3 AM</div>
+                    <div>69.6°F</div>
+                </div>
                 
-                    <div class="hour-block">
-                        <i class="wi wi-cloudy"></i>
-                        <div>9 PM</div>
-                        <div>77.2°F</div>
-                    </div>
+                <div class="hour-block">
+                    <i class="wi wi-cloudy"></i>
+                    <div>4 AM</div>
+                    <div>70.3°F</div>
+                </div>
                 
             </div>
         </div>
@@ -197,45 +233,44 @@
             <h3>6-Day Forecast</h3>
             <div class="forecast-row">
                 
-                    <div class="day-block">
-                        <i class="wi wi-cloud"></i>
-                        <div>Tue, Oct  7</div>
-                        <div>67.1°F - 78.8°F</div>
-                    </div>
+                <div class="day-block">
+                    <i class="wi wi-cloud"></i>
+                    <div>Tue, Oct  7</div>
+                    <div>67.0°F - 78.9°F</div>
+                </div>
                 
-                    <div class="day-block">
-                        <i class="wi wi-day-rain"></i>
-                        <div>Wed, Oct  8</div>
-                        <div>68.9°F - 87.6°F</div>
-                    </div>
+                <div class="day-block">
+                    <i class="wi wi-day-rain"></i>
+                    <div>Wed, Oct  8</div>
+                    <div>67.5°F - 82.3°F</div>
+                </div>
                 
-                    <div class="day-block">
-                        <i class="wi wi-day-rain"></i>
-                        <div>Thu, Oct  9</div>
-                        <div>62.3°F - 74.0°F</div>
-                    </div>
+                <div class="day-block">
+                    <i class="wi wi-day-rain"></i>
+                    <div>Thu, Oct  9</div>
+                    <div>61.6°F - 69.5°F</div>
+                </div>
                 
-                    <div class="day-block">
-                        <i class="wi wi-day-sunny"></i>
-                        <div>Fri, Oct 10</div>
-                        <div>51.0°F - 72.2°F</div>
-                    </div>
+                <div class="day-block">
+                    <i class="wi wi-day-sunny"></i>
+                    <div>Fri, Oct 10</div>
+                    <div>51.1°F - 72.0°F</div>
+                </div>
                 
-                    <div class="day-block">
-                        <i class="wi wi-day-sunny"></i>
-                        <div>Sat, Oct 11</div>
-                        <div>51.7°F - 75.4°F</div>
-                    </div>
+                <div class="day-block">
+                    <i class="wi wi-day-sunny"></i>
+                    <div>Sat, Oct 11</div>
+                    <div>49.5°F - 75.7°F</div>
+                </div>
                 
-                    <div class="day-block">
-                        <i class="wi wi-day-sunny"></i>
-                        <div>Sun, Oct 12</div>
-                        <div>51.9°F - 79.7°F</div>
-                    </div>
+                <div class="day-block">
+                    <i class="wi wi-day-sunny"></i>
+                    <div>Sun, Oct 12</div>
+                    <div>51.8°F - 78.6°F</div>
+                </div>
                 
             </div>
         </div>
     </div>
 </body>
 </html>
-
